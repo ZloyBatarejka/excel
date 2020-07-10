@@ -6,12 +6,15 @@
         "node":true
     },
     "rules":{
+        "operator-linebreak": "off",
         "semi": "off",
         "linebreak-style": "off",
         "arrow-parens": "off",
         "comma-dangle": "off",
          "indent": "off",
-         "require-jsdoc": "off"
+         "require-jsdoc": "off",
+         "max-len": ["error", { "code": 120 }]
+
     },
     "extends": ["eslint:recommended", "google"],
 }
