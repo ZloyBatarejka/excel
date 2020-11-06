@@ -1,7 +1,6 @@
 import {$} from '@core/dom'
-import {shouldResize} from './table.utils'
+
 export function resizeHandler(event, root) {
-    if (shouldResize(event)) {
         const $resizer = $(event.target)
         const $parent = $resizer.closest('[data-type="resizable"]')
         const coords = $parent.getCoords()
@@ -38,6 +37,5 @@ export function resizeHandler(event, root) {
         document.onmouseup = null;
         $resizer.css({opacity: 0, bottom: '0px', right: '0px'})
         }
-    }
 }
 
