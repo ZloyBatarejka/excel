@@ -1,4 +1,5 @@
 import {capitalize} from './utils'
+
 export class DomListener {
     constructor($root, listeners=[]) {
         if (!$root) {
