@@ -24,7 +24,7 @@ class Dom {
       if (this.$el.tagName.toLowerCase() === 'input') {
         return this.$el.value.trim();
       }
-      return this.$el.textContent;
+      return this.$el.textContent.trim();
     }
 
     clear() {
@@ -80,6 +80,14 @@ class Dom {
         .keys(styles)
         .forEach(key=>this.$el.style[key]=styles[key])
     }
+
+    getStyles(styles=[]) {
+      return styles.reduce((res, s) => {
+        res[s] = this.$el.style[s];
+        return res;
+      }, {} )
+    }
+
     append(node) {
       if (node instanceof Dom) {
         node = node.$el
