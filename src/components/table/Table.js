@@ -5,8 +5,8 @@ import {TableSelection} from './TableSelection';
 import {shouldResize, isCell, matrix, nextSelector} from './table.utils';
 import {$} from '@core/dom';
 import * as actions from '../../redux/actions';
-import {initialState} from '../../redux/initialState';
 import {defaultStyles} from '../../constants';
+import {initialState} from '../../redux/initialState';
 
 
 export class Table extends ExcelComponent {
@@ -19,7 +19,8 @@ export class Table extends ExcelComponent {
     })
   }
     toHTML() {
-        return createTable(25, initialState);
+        console.log(initialState, '---------')
+        return createTable(25, this.store.getState());
       }
       prepare() {
         this.selection = new TableSelection();
@@ -34,8 +35,10 @@ export class Table extends ExcelComponent {
         this.$on('formula:enter', () => {
           this.selection.current.focus();
         });
-        this.$on('toolbar:applyStyle', (style) => {
-          this.selection.applyStyle(style);
+        this.$on('toolbar:applyStyle', (value) => {
+          this.selection.applyStyle(value);
+          console.log(this.selection.selectedIds)
+          this.$dispatch(actions.applyStyle({value: value, ids: this.selection.selectedIds}))
         });
       }
       async resizeTable(event) {
@@ -66,7 +69,9 @@ export class Table extends ExcelComponent {
       selectCell($cell) {
         this.selection.select($cell);
         this.$emit('table:select', $cell);
-        console.log($cell.getStyles(Object.keys(defaultStyles)))
+        const styles = $cell.getStyles(Object.keys(defaultStyles))
+        console.log(styles);
+        this.$dispatch(actions.changeStyles(styles))
       }
       onKeydown(event) {
         const {key} = event;
