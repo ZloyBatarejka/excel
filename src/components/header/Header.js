@@ -3,6 +3,7 @@ import {$} from '@core/dom';
 import {changeTitle} from '../../redux/actions';
 import {defaultTitle} from '../../constants';
 
+
 export class Header extends ExcelComponent {
   static className = 'excel__header';
   constructor($root, options) {
