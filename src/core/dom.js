@@ -17,7 +17,7 @@ class Dom {
     }
 
     text(text) {
-      if (typeof text === 'string') {
+      if (typeof text === 'string' || typeof text === 'number') {
         this.$el.textContent = text;
         return this;
       }
@@ -32,9 +32,18 @@ class Dom {
       return this;
     }
 
+    attr(name, value) {
+      if (value) {
+        this.$el.setAttribute(name, value);
+        return this;
+      }
+      return this.$el.getAttribute(name);
+    }
+
     on(eventType, callback) {
       this.$el.addEventListener(eventType, callback);
     }
+
     id(parse) {
         if (parse) {
             const parsed = this.id().split(':');

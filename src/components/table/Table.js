@@ -6,7 +6,7 @@ import {shouldResize, isCell, matrix, nextSelector} from './table.utils';
 import {$} from '@core/dom';
 import * as actions from '../../redux/actions';
 import {defaultStyles} from '../../constants';
-import {initialState} from '../../redux/initialState';
+import {parse} from '../../core/parse';
 
 
 export class Table extends ExcelComponent {
@@ -19,7 +19,6 @@ export class Table extends ExcelComponent {
     })
   }
     toHTML() {
-        console.log(initialState, '---------')
         return createTable(25, this.store.getState());
       }
       prepare() {
@@ -29,7 +28,10 @@ export class Table extends ExcelComponent {
         super.init();
         this.selectCell(this.$root.find('[data-id="0:0"]'));
         this.$on('fomula:input', text => {
-          this.selection.current.text(text);
+          console.log(this.selection.current)
+          this.selection.current.attr('data-value', text)
+                                .text(parse(text));
+
           this.updateTextInStore(text);
         });
         this.$on('formula:enter', () => {
@@ -37,7 +39,6 @@ export class Table extends ExcelComponent {
         });
         this.$on('toolbar:applyStyle', (value) => {
           this.selection.applyStyle(value);
-          console.log(this.selection.selectedIds)
           this.$dispatch(actions.applyStyle({value: value, ids: this.selection.selectedIds}))
         });
       }
@@ -70,7 +71,6 @@ export class Table extends ExcelComponent {
         this.selection.select($cell);
         this.$emit('table:select', $cell);
         const styles = $cell.getStyles(Object.keys(defaultStyles))
-        console.log(styles);
         this.$dispatch(actions.changeStyles(styles))
       }
       onKeydown(event) {

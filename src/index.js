@@ -12,7 +12,7 @@ import {initialState} from './redux/initialState';
 const store = createStore(rootReducer, initialState);
 
 const stateListener = debounce(state => {
-   console.log('hey');
+   console.log('dsds', state)
    storage('excelState', state);
 }, 300)
 

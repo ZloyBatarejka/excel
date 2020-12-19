@@ -19,6 +19,7 @@ export function capitalize(string) {
     if (!data) {
       return JSON.parse(localStorage.getItem(key))
     }
+    console.log('yoyoy')
     localStorage.setItem(key, JSON.stringify(data))
   }
 
@@ -43,11 +44,12 @@ export function capitalize(string) {
     let timeout
     return function(...args) {
       const later = () => {
-        clearTimeout(timeout);
-        // eslint-disable-next-line no-invalid-this
-        fn.apply(this, ...args)
+        clearTimeout(timeout)
+        // eslint-disable-next-line
+        fn.apply(this, args)
       }
-      clearTimeout(timeout);
+      clearTimeout(timeout)
       timeout = setTimeout(later, wait)
     }
   }
+
