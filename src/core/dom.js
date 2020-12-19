@@ -81,9 +81,11 @@ class Dom {
       this.$el.classList.remove(className);
       return this;
     }
+
     get data() {
       return this.$el.dataset;
     }
+
     css(styles = {}) {
         Object
         .keys(styles)
