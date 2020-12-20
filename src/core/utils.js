@@ -19,7 +19,6 @@ export function capitalize(string) {
     if (!data) {
       return JSON.parse(localStorage.getItem(key))
     }
-    console.log('yoyoy')
     localStorage.setItem(key, JSON.stringify(data))
   }
 
